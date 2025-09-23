@@ -1,4 +1,4 @@
-# Aprendizaje de este video
+# Aprendizaje del video correspondiente
 
 Primeramente quiero decir que mi forma de ver el queso fue como las oportunidades que están frente a nosotros y muchas veces no se toman o buscan.
 
