@@ -27,6 +27,7 @@
 
 **Entonces** el juego verifica si hay un ganador o empate para el movimiento dado
 
+
 ## **Escenario 4 (Historia de usuario 004):** Reinicio del juego
 
 **Dado** que el jugador desea reiniciar el juego
@@ -35,4 +36,12 @@
 
 **Entonces** la cuadrícula se restablece a un estado vacío y se le permite al jugador volver a seleccionar entre "X" y "O"
 
+
+## **Escenario (Historia de usuario 005):** UI intuitiva
+
+**Dado** que el jugador desea jugar sin confusión
+
+**Cuando** está en una partida
+
+**Entonces** la cuadrícula debe estar visible y tener un diseño limpio, las casillas deben estar bien delimitadas y ser facilmente seleccionables, los indicadores de turno y estado del juego deben ser claramente visibles.
 
