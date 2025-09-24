@@ -27,3 +27,12 @@
 
 **Entonces** el juego verifica si hay un ganador o empate para el movimiento dado
 
+## **Escenario 4 (Historia de usuario 004):** Reinicio del juego
+
+**Dado** que el jugador desea reiniciar el juego
+
+**Cuando** hace click en el botón de reinicio
+
+**Entonces** la cuadrícula se restablece a un estado vacío y se le permite al jugador volver a seleccionar entre "X" y "O"
+
+
