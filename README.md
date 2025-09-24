@@ -59,11 +59,11 @@
 
 ### Clase grande
 
-La clase user es muy grande y contiene cosas que no son propias de la clase por ejemplo la lista orderss
+La clase user es muy grande, se puede modularizar para hacerla más limpia y fácil de mantener.
 
 ### Código duplicado
 
-Este código es duplicado ya que ambos iteran sobre una lista e imprimen en la consola, ambas podrian ser clases aparte
+Este código es duplicado ya que ambos iteran sobre una lista e imprimen en la consola, ambas podrian ser clases aparte.
 
 ``` java
       // Method to print all orders
@@ -83,7 +83,7 @@ Este código es duplicado ya que ambos iteran sobre una lista e imprimen en la c
 
 ### Lista larga de parámetros
 
-Este método recibe una lista larga de parámetros, estos se podrían enviar para otra clase como "userInfo"
+Este método recibe una lista larga de parámetros, estos se podrían enviar para otra clase como "userInfo", haciendo la lectura del código más sencilla.
 
 ``` java
         // Method to update user information
@@ -96,7 +96,7 @@ Este método recibe una lista larga de parámetros, estos se podrían enviar par
 ```
 ### Código muerto
 
-Este código se debe de eliminar ya que dice que no se va a usar más
+Este código se debe de eliminar ya que dice que no se va a usar más. Agrega complejidad.
 
 ``` java
         // Deprecated method
@@ -107,7 +107,7 @@ Este código se debe de eliminar ya que dice que no se va a usar más
 
 ### Problema de lógica
 
-Acá por ejemplo nunca se va a aplicar el descuento si tiene más de 200 puntos, siempre en ese caso se aplicaría el primer if, además siempre se va a aplicar un descuento del 0.05 debido al else. A parte que no hace falta enviar estos por parámetro si están dentro de la misma clase.
+Acá por ejemplo nunca se va a aplicar el descuento si tiene más de 200 puntos, siempre en ese caso se aplicaría el primer if. A parte que no hace falta enviar estos por parámetro si están dentro de la misma clase.
 
 ``` java
         // Method to calculate discount based on loyalty points
@@ -136,15 +136,6 @@ Las dirrecciones, direcciones de correo y email si tienen validaciones pueden co
         private String address;
         private String phone;
         private String email;
-```
-
-### Envidia de características
-
-Estas dos pareciera que perfectamente pueden pertenecer a otra clase, además una clase no debe de manejar todas las cosas de un programa, pienso que orders y coupons no calzan en la clase User. 
-
-``` java
-        private List<String> orders;
-        private List<String> coupons;
 ```
 
 ## Refactor
