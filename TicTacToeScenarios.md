@@ -1,7 +1,6 @@
-
- # Escenarios
+# Escenarios
  
- ## **Escenario 1 (Historia de usuario 001):** Iniciar una nueva partida de Tic-Tac-Toe
+## **Escenario 1 (Historia de usuario 001):** Iniciar una nueva partida de Tic-Tac-Toe
 
 **Dado** que el jugador abre el juego de Tic-Tac-Toe
 
