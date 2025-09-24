@@ -130,7 +130,7 @@ Muchos métodos de esta clase contienen comentarios innecesarios si no es que to
 
 ### Obsesión por los primitivos
 
-Las dirrecciones, direcciones de correo y email si tienen validaciones pueden convertirse en algo difícil de mantener debido a que le pueden agregar más complejidad a esta clase.
+Las direcciones, direcciones de correo y email si tienen validaciones pueden convertirse en algo difícil de mantener debido a que le pueden agregar más complejidad a esta clase.
 
 ``` java
         private String address;
