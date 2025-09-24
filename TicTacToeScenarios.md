@@ -19,3 +19,11 @@
 **Entonces** la casilla muestra la marca del jugador ("X" o "O") y se cambia el turno para que el otro jugador haga su movimiento
 
 
+## **Escenario 3 (Historia de usuario 003):** Un jugador gana-pierde-empata la partida
+
+**Dado** que el jugador está en una partida de TicTacToe
+
+**Cuando** se hace un movimiento
+
+**Entonces** el juego verifica si hay un ganador o empate para el movimiento dado
+
