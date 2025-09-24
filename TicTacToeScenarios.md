@@ -37,7 +37,7 @@
 **Entonces** la cuadrícula se restablece a un estado vacío y se le permite al jugador volver a seleccionar entre "X" y "O"
 
 
-## **Escenario (Historia de usuario 005):** UI intuitiva
+## **Escenario 5 (Historia de usuario 005):** UI intuitiva
 
 **Dado** que el jugador desea jugar sin confusión
 
@@ -45,3 +45,20 @@
 
 **Entonces** la cuadrícula debe estar visible y tener un diseño limpio, las casillas deben estar bien delimitadas y ser facilmente seleccionables, los indicadores de turno y estado del juego deben ser claramente visibles.
 
+
+## **Escenario 6 (Historia de usuario 006):** Multijugador local
+
+**Dado** que el jugador desea jugar con otras personas
+
+**Cuando** cada jugador realiza su movimiento en el turno correspondiente 
+
+**Entonces** se deben permitir dos jugadores en el mismo dispositivo, uno jugando como "X" y otro como "O", se deben alternar los turnos después de cada movimiento y mostrar el marcador o el estado del juego de los jugadores
+
+
+## **Escenario 7 (Historia de usuario 006):** Juego contra la computadora
+
+**Dado** que el jugador desea practicar y mejorar en TicTacToe
+
+**Cuando** el jugador selecciona la opción de jugar contra la computadora
+
+**Entonces** la IA debe hacer movimientos válidos para desafiar al jugador y debe tener niveles de dificultad (fácil, medio, difícil...)
