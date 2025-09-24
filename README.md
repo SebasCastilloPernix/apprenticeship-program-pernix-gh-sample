@@ -1,89 +1,148 @@
-# Apprenticeship Program Pernix GH Sample
+# Code smells
 
-This project is part of the Apprenticeship Program at Pernix, designed to teach participants the basics of Git and GitHub.
+## Original code
 
-## Table of Contents
+``` java
+    public class User {
+        private String name;
+        private String address;
+        private String phone;
+        private String email;
+        private int loyaltyPoints;
+        private double accountBalance;
+        private List<String> orders;
+        private List<String> coupons;
 
-1. [Introduction](#introduction)
-2. [Objective](#objective)
-3. [Prerequisites](#prerequisites)
-4. [Getting Started](#getting-started)
-5. [Contributing](#contributing)
-6. [Learning Resources](#learning-resources)
-7. [Contact](#contact)
+        // Method to update user information
+        public void updateInfo(String name, String address, String phone, String email) {
+            this.name = name;
+            this.address = address;
+            this.phone = phone;
+            this.email = email;
+        }
 
-## Introduction
+        // Method to calculate discount based on loyalty points
+        public double calculateDiscount(int loyaltyPoints, double accountBalance) {
+            double discount = 0.0;
+            if (loyaltyPoints > 100) {
+                discount = accountBalance * 0.1;
+            } else if (loyaltyPoints > 200) {
+                discount = accountBalance * 0.2;
+            } else {
+                discount = accountBalance * 0.05;
+            }
+            return discount;
+        }
 
-The "Apprenticeship Program Pernix GH Sample" project is a learning resource aimed at teaching the fundamentals of version control using Git and GitHub.
+        // Method to print all orders
+        public void printOrders() {
+            for (String order : orders) {
+                System.out.println("Order: " + order);
+            }
+        }
 
-## Objective
+        // Method to apply coupons
+        public void applyCoupons(List<String> coupons) {
+            for (String coupon : coupons) {
+                System.out.println("Applying coupon: " + coupon);
+            }
+        }
 
-The primary goal of this project is to:
+        // Deprecated method
+        public void deprecatedMethod() {
+            // This method is no longer used
+        }
+    }
+```
 
-- Introduce the basics of Git, including cloning repositories, making commits, and pushing changes.
-- Familiarize participants with GitHub workflows, such as forking repositories, creating branches, and submitting pull requests.
-- Provide hands-on experience with common Git commands and best practices.
+## Problems with the codes
 
-## Prerequisites
+### Clase grande
 
-Before starting, ensure you have the following:
+La clase user es muy grande y contiene cosas que no son propias de la clase por ejemplo la lista orderss
 
-- **Git**: Installed on your local machine. You can download it from [git-scm.com](https://git-scm.com/).
-- **GitHub Account**: Sign up at [github.com](https://github.com/).
-- **Basic Command Line Knowledge**: Familiarity with command-line interfaces (CLI) is helpful.
+### Código duplicado
 
-## Getting Started
+Este código es duplicado ya que ambos iteran sobre una lista e imprimen en la consola
 
-To get started with the exercises, follow these steps:
+``` java
+      // Method to print all orders
+        public void printOrders() {
+            for (String order : orders) {
+                System.out.println("Order: " + order);
+            }
+        }
 
-1. **Fork the Repository**: Click the "Fork" button at the top right corner of this repository's GitHub page to create a copy under your account.
+        // Method to apply coupons
+        public void applyCoupons(List<String> coupons) {
+            for (String coupon : coupons) {
+                System.out.println("Applying coupon: " + coupon);
+            }
+        }
+```
 
-2. **Clone the Repository**: Clone the forked repository to your local machine.
+### Lista larga de parámetros
 
-    ```bash
-    git clone https://github.com/your_username/apprenticeship-program-pernix-gh-sample.git
-    cd apprenticeship-program-pernix-gh-sample
-    ```
+Este método recibe una lista larga de parámetros, estos se podrían enviar para otra clase como "userInfo"
 
-3. **Create a Branch**: Always create a new branch for your work to keep changes organized.
+``` java
+        // Method to update user information
+        public void updateInfo(String name, String address, String phone, String email) {
+            this.name = name;
+            this.address = address;
+            this.phone = phone;
+            this.email = email;
+        }
+```
+### Código muerto
 
-    ```bash
-    git checkout -b your-branch-name
-    ```
+Este código se debe de eliminar ya que dice que no se va a usar más
 
-4. **Make Changes**: Add, edit, or remove files as instructed in the exercises.
+``` java
+        // Deprecated method
+        public void deprecatedMethod() {
+            // This method is no longer used
+        }
+```
 
-5. **Commit Your Changes**: Save your changes with a descriptive commit message.
+### Problema de lógica
 
-    ```bash
-    git add .
-    git commit -m "Your commit message"
-    ```
+Acá por ejemplo nunca se va a aplicar el descuento si tiene más de 200 puntos, siempre en ese caso se aplicaría el primer if, además siempre se va a aplicar un descuento del 0.05 debido al else.
 
-6. **Push Your Changes**: Push your changes to your GitHub repository.
+``` java
+        // Method to calculate discount based on loyalty points
+        public double calculateDiscount(int loyaltyPoints, double accountBalance) {
+            double discount = 0.0;
+            if (loyaltyPoints > 100) {
+                discount = accountBalance * 0.1;
+            } else if (loyaltyPoints > 200) {
+                discount = accountBalance * 0.2;
+            } else {
+                discount = accountBalance * 0.05;
+            }
+            return discount;
+        }
+```
 
-    ```bash
-    git push origin your-branch-name
-    ```
+### Comentarios
 
-7. **Create a Pull Request**: On GitHub, open a pull request to merge your changes into the main branch of this repository.
+Muchos métodos de esta clase contienen comentarios innecesarios si no es que todos los métodos los tienen, porque ya los métodos tienen nombres significativos.
 
-## Contributing
+### Obsesión por los primitivos
 
-We encourage participants to contribute to this project by adding new exercises, fixing typos, or suggesting improvements. Please read our [CONTRIBUTING.md](CONTRIBUTING.md) file for more details on how to contribute.
+Las dirrecciones, direcciones de correo y email si tienen validaciones pueden convertirse en algo difícil de mantener debido a que le pueden agregar más complejidad a esta clase.
 
-## Learning Resources
+``` java
+        private String address;
+        private String phone;
+        private String email;
+```
 
-Here are some resources to help you learn more about Git and GitHub:
+### Envidia de características
 
-- [Pro Git Book](https://git-scm.com/book/en/v2)
-- [GitHub Learning Lab](https://lab.github.com/)
-- [Atlassian Git Tutorial](https://www.atlassian.com/git/tutorials)
+Estas dos pareciera que perfectamente pueden pertenecer a otra clase, además una clase no debe de manejar todas las cosas de un programa, pienso que orders y coupons no calzan en la clase User. 
 
-## Contact
-
-For any questions or support, please reach out to the program coordinator at [apprentices@pernix.com].
-
----
-
-Feel free to customize this template according to your specific needs and the structure of your apprenticeship program.
+``` java
+        private List<String> orders;
+        private List<String> coupons;
+```
