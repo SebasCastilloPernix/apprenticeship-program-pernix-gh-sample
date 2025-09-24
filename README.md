@@ -63,7 +63,7 @@ La clase user es muy grande y contiene cosas que no son propias de la clase por 
 
 ### Código duplicado
 
-Este código es duplicado ya que ambos iteran sobre una lista e imprimen en la consola
+Este código es duplicado ya que ambos iteran sobre una lista e imprimen en la consola, ambas podrian ser clases aparte
 
 ``` java
       // Method to print all orders
@@ -107,7 +107,7 @@ Este código se debe de eliminar ya que dice que no se va a usar más
 
 ### Problema de lógica
 
-Acá por ejemplo nunca se va a aplicar el descuento si tiene más de 200 puntos, siempre en ese caso se aplicaría el primer if, además siempre se va a aplicar un descuento del 0.05 debido al else.
+Acá por ejemplo nunca se va a aplicar el descuento si tiene más de 200 puntos, siempre en ese caso se aplicaría el primer if, además siempre se va a aplicar un descuento del 0.05 debido al else. A parte que no hace falta enviar estos por parámetro si están dentro de la misma clase.
 
 ``` java
         // Method to calculate discount based on loyalty points
@@ -145,4 +145,115 @@ Estas dos pareciera que perfectamente pueden pertenecer a otra clase, además un
 ``` java
         private List<String> orders;
         private List<String> coupons;
+```
+
+## Refactor
+
+``` java
+
+public class User {
+    private UserInfo user;
+    int loyaltyPoints;
+    double accountBalance;
+    Item orders;
+    Item coupons;
+
+    public User(UserInfo user, int loyaltyPoints, Item orders, Item coupons, double accountBalance) {
+        this.user = user;
+        this.loyaltyPoints = loyaltyPoints;
+        this.accountBalance = accountBalance;
+        this.orders = orders;
+        this.coupons = coupons;
+    }
+    
+    public double calculateDiscount() {
+        if (loyaltyPoints > 200) {
+            return accountBalance * 0.2;
+        } else if (loyaltyPoints > 100) {
+            return accountBalance * 0.1;
+        }
+        return accountBalance * 0.05;
+    }
+    public void printOrders() {
+        orders.print("Order");
+    }
+
+    public void applyCoupons() {
+        coupons.print("Applying coupon");
+    }
+
+    public void updateInfo(UserInfo user) {
+        this.user = user;
+    }
+}
+
+public class UserInfo {
+    private String name;
+    private Email email;
+    private Address address;
+    private Phone phone;
+
+    void updateName(String name) { 
+        this.name = name;
+    }
+
+    void updateEmail(Email email) {
+        this.email = email;
+    }
+
+    void updateAddress(Address address) {
+        this.address = address;
+    }
+
+    void updatePhone(Phone phone) {
+        this.phone = phone;
+    }
+}
+
+abstract class ContactInfo {
+    protected String value;
+    public String getValue() { return this.value; }
+}
+
+public class Email extends ContactInfo {
+    public Email(String value) {
+        // We can add validations in this part
+        // and we don't overcharge the class User
+        this.value = value;
+    }
+}
+
+public class Address extends ContactInfo {
+    public Address(String value) {
+        // We can add validations in this part
+        // and we don't overcharge the class User
+        this.value = value;
+    }
+}
+
+public class Phone extends ContactInfo {
+    public Phone(String value) {
+        // We can add validations in this part
+        // and we don't overcharge the class User
+        this.value = value;
+    }
+}
+
+public class Item {
+    List<String> items;
+
+    public Item(List<String> items){
+        this.items = items;
+    }
+
+    public addItem(String item) {
+        items.add(item);
+    }
+
+    public void print(String name) {
+        for(String item : items) {
+            System.println.out(name + ": " + items);
+        }
+    } 
+}
 ```
