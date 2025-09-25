@@ -144,10 +144,10 @@ Las direcciones, direcciones de correo y email si tienen validaciones pueden con
 
 public class User {
     private UserInfo user;
-    int loyaltyPoints;
-    double accountBalance;
-    Item orders;
-    Item coupons;
+    private int loyaltyPoints;
+    private double accountBalance;
+    private Item orders;
+    private Item coupons;
 
     public User(UserInfo user, int loyaltyPoints, Item orders, Item coupons, double accountBalance) {
         this.user = user;
@@ -231,7 +231,7 @@ public class Phone extends ContactInfo {
 }
 
 public class Item {
-    List<String> items;
+    private List<String> items;
 
     public Item(List<String> items){
         this.items = items;
