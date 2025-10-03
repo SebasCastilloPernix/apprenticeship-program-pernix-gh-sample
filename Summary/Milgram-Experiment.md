@@ -1,0 +1,3 @@
+# Aprendizaje del video correspondiente
+
+Bueno con este video es muy impactante como muchas veces cometemos actos que eticamente no están bien por miedo a la autoridad tal como se menciona en el video, pienso que es importante tener criterio propio, ya que en estos casos extremos donde la integridad de otras personas está en juego se necesita decir claramente no porque voy a afectar a ciertas personas o no porque voy a hacerle daño a los demás. Sin embargo también entra el otro dilema que muchas veces se tiene que es no seguir las reglas que se dan. Sin embargo pienso que muchas veces es importante decir "no porque no está bien".
