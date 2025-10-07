@@ -24,7 +24,10 @@
 
 **Cuando** se hace un movimiento
 
-**Entonces** el juego verifica si hay un ganador o empate para el movimiento dado
+**Entonces** el juego verifica si hay un ganador o empate para el movimiento dado:
+- **Victoria**: Si un jugador logra colocar tres de sus marcas en línea (horizontal, vertical o diagonal), se declara ganador y se muestra un mensaje de victoria
+- **Empate**: Si todas las 9 casillas están llenas y ningún jugador tiene tres marcas en línea, se declara empate y se muestra un mensaje de empate.
+- **Juego continúa**: Si no hay ganador ni empate, el juego continúa y pasa el turno al siguiente jugador
 
 
 ## **Escenario 4 (Historia de usuario 004):** Reinicio del juego
