@@ -54,7 +54,7 @@
 **Entonces** se deben permitir dos jugadores en el mismo dispositivo, uno jugando como "X" y otro como "O", se deben alternar los turnos después de cada movimiento y mostrar el marcador o el estado del juego de los jugadores
 
 
-## **Escenario 7 (Historia de usuario 006):** Juego contra la computadora
+## **Escenario 7 (Historia de usuario 007):** Juego contra la computadora
 
 **Dado** que el jugador desea practicar y mejorar en TicTacToe
 
