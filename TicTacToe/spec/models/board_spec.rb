@@ -12,7 +12,7 @@ RSpec.describe Board, type: :model do
     end
 
     it 'creates a board with empty nine spaces' do
-      expect(board.board.all? {|cell| cell == ' '}).to be true
+      expect(board.board.all? { |cell| cell == ' ' }).to be true
     end
   end
 end
