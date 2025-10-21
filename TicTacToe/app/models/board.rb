@@ -17,4 +17,34 @@ class Board < ApplicationRecord
     # Ensures that the player is 'O' or 'X'
     @board[movement] = player.symbol
   end
+
+ # Check if there is a winner
+  def winner?
+    winning_combinations.each do |combination|
+      values = combination.map { |index| @board[index] }
+      return values.first if values.uniq.length == 1 && values.first != ' '
+    end
+    nil
+  end
+
+  # Check if the game is a draw
+  def draw?
+    @board.none? { |cell| cell == ' ' } && winner?.nil?
+  end
+
+  private
+
+  # Define winning combinations dynamically
+  def winning_combinations
+    [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6]
+    ]
+  end
 end
