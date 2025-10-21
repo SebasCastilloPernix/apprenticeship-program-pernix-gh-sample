@@ -1,7 +1,7 @@
 class Game < ApplicationRecord
   attr_reader :board, :player1, :player2, :current_turn
 
-    # Initializes the game
+  # Initializes the game
   def initialize_game(symbol)
     initialize_board
     initialize_players(symbol)
@@ -30,12 +30,26 @@ class Game < ApplicationRecord
   # Make the movement
   def make_move(cell_index)
     @board.make_movement(cell_index, @current_turn)
-    switch_turn
+    result = check_game_status
+    switch_turn unless result[:status] == :finished
+    result
   end
 
   private
+
   # To change the turn
   def switch_turn
     @current_turn = @current_turn == @player1 ? @player2 : @player1
+  end
+
+  # Check the status of the game
+  def check_game_status
+    if @board.winner?
+      { status: :finished, message: "El ganador es el jugador '#{@board.winner?}'" }
+    elsif @board.draw?
+      { status: :finished, message: "El juego terminó en empate." }
+    else
+      { status: :ongoing, message: "Turno de '#{@current_turn.symbol}'." }
+    end
   end
 end
