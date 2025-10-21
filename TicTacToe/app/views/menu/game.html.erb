@@ -1,0 +1,25 @@
+<div id="game-container">
+  <div id="scoreboard">
+    <div class="score-box player-x">
+        <h3>Player X</h3>
+        <p id="player-x-score">0</p>
+    </div>
+    <div class="score-box draw">
+        <h3>Draw</h3>
+        <p id="draw-score">0</p>
+    </div>
+    <div class="score-box player-o">
+        <h3>Player O</h3>
+        <p id="player-o-score">0</p>
+    </div>
+  </div>
+
+  <h2>Turno actual: <span id="current_turn"><%= @current_turn %></span></h2>
+  <div id="game-board">
+    <% @board.each_with_index do |cell, index| %>
+      <div class="cell" data-index="<%= index %>">
+        <%= cell %>
+      </div>
+    <% end %>
+  </div>
+</div>
