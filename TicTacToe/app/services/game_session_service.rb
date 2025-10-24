@@ -26,5 +26,6 @@ class GameSessionService
     @session.delete(:current_turn)
     @session.delete(:game_status)
     @session.delete(:result)
+    @session.delete(:game_mode)
   end
 end

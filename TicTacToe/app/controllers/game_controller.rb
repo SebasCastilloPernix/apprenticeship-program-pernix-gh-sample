@@ -6,7 +6,9 @@ class GameController < ApplicationController
     @game.initialize_board
     @game.initialize_players(params[:player_symbol])
     GameSessionService.new(session, @game).save_state_after_start
-    redirect_to game_path, notice: "El juego ha comenzado. Juegas como '#{@game.current_turn.symbol}'."
+    session[:player_symbol] = params[:player_symbol].presence || session[:player_symbol] || 'X'
+    session[:game_mode] = params[:game_mode].presence || session[:game_mode] || 'local'
+    redirect_to game_path, notice: "El juego ha comenzado. Juegas como '#{@game.current_turn.symbol}'. Modo: #{session[:game_mode]}"
   end
 
   def game
