@@ -14,15 +14,24 @@
     </div>
   </div>
 
-  <h2>Turno actual: <span id="current_turn"><%= @current_turn %></span></h2>
+  <h2>
+    <% if session[:game_status].to_s == 'finished' %>
+      <span id="current_turn"><%= flash[:notice] || "Juego terminado" %></span>
+    <% else %>
+      Turno actual: <span id="current_turn"><%= @current_turn %></span>
+    <% end %>
+  </h2>
   <div id="game-board">
-    <% @board.board.each_with_index do |cell, index| %>
-      <div class="cell">
+  <% @board.board.each_with_index do |cell, index| %>
+    <div class="cell">
+      <% if session[:game_status] == :finished %>
+        <button class="cell-button" disabled><%= cell %></button>
+      <% else %>
         <%= form_with url: make_move_path, method: :post, local: true do |form| %>
           <%= form.hidden_field :cell_index, value: index %>
           <button type="submit" class="cell-button"><%= cell %></button>
         <% end %>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>

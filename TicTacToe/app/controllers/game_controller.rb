@@ -1,34 +1,41 @@
 class GameController < ApplicationController
+  before_action :load_game_from_session, only: [:game, :make_move]
+
   def start_game
     @game = Game.new
     @game.initialize_board
     @game.initialize_players(params[:player_symbol])
-    session[:board] = @game.board.board
-    session[:current_turn] = @game.current_turn.symbol
+    GameSessionService.new(session, @game).save_state_after_start
     redirect_to game_path, notice: "El juego ha comenzado. Juegas como '#{@game.current_turn.symbol}'."
   end
 
   def game
-    @game = Game.new
-    @game.initialize_board
     @board = @game.board
-    @game.board.instance_variable_set(:@board, session[:board])
     @current_turn = session[:current_turn]
   end
 
   def make_move
+    if GameSessionService.new(session, @game).game_finished?
+      redirect_to game_path, alert: "El juego ya ha terminado. Por favor, reinicia el juego para comenzar de nuevo." and return
+    end
+
     begin
-      @game = Game.new
-      @game.initialize_board
-      @game.board.instance_variable_set(:@board, session[:board])
-      @game.initialize_players(session[:current_turn])
-      @game.make_move(params[:cell_index].to_i)
-      session[:board] = @game.board.board
-      session[:current_turn] = @game.current_turn.symbol
-      redirect_to game_path, notice: "Turno de '#{@game.current_turn.symbol}'."
+      result = @game.make_move(params[:cell_index].to_i)
+      GameSessionService.new(session, @game).save_result(result)
+      flash[:notice] = result[:message]
+      redirect_to game_path
     rescue InvalidLocation, InvalidMovement => e
       flash[:alert] = e.message
       redirect_to game_path
     end
+  end
+
+  private
+
+  def load_game_from_session
+    @game = Game.new
+    @game.initialize_board
+    @game.board.instance_variable_set(:@board, session[:board]) if session[:board]
+    @game.initialize_players(session[:current_turn] || 'X')
   end
 end
