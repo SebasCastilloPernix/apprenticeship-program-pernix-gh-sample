@@ -31,8 +31,9 @@ class Game < ApplicationRecord
   def make_move(cell_index)
     @board.make_movement(cell_index, @current_turn)
     result = check_game_status
-    switch_turn unless result[:status] == :finished
-    result
+    return result if result[:status] == :finished
+    switch_turn
+    check_game_status
   end
 
   private
