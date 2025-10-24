@@ -1,4 +1,10 @@
 <div id="game-container">
+  <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+    <h2 style="margin: 0;">Tic Tac Toe</h2>
+    <%= form_with url: reset_game_path, method: :post, local: true do %>
+      <%= submit_tag "Reiniciar juego", class: "btn-restart" %>
+    <% end %>
+  </div>
   <div id="scoreboard">
     <div class="score-box player-x">
         <h3>Player X</h3>
@@ -15,22 +21,25 @@
   </div>
 
   <h2>
-    <% if session[:game_status].to_s == 'finished' %>
-      <span id="current_turn"><%= flash[:notice] || "Juego terminado" %></span>
+    <% case session[:game_status].to_s %>
+    <% when 'finished' %>
+      <span id="current_turn"><%= flash[:notice] || (session[:result] && session[:result][:message]) || "Juego terminado" %></span>
+    <% when 'ongoing' %>
+      Turno actual: <span id="current_turn"><%= session[:current_turn] %></span>
     <% else %>
-      Turno actual: <span id="current_turn"><%= @current_turn %></span>
+      <span id="current_turn">Selecciona un símbolo para empezar desde el menú.</span>
     <% end %>
   </h2>
   <div id="game-board">
   <% @board.board.each_with_index do |cell, index| %>
     <div class="cell">
-      <% if session[:game_status] == :finished %>
-        <button class="cell-button" disabled><%= cell %></button>
-      <% else %>
+      <% if session[:game_status].to_s == 'ongoing' %>
         <%= form_with url: make_move_path, method: :post, local: true do |form| %>
           <%= form.hidden_field :cell_index, value: index %>
           <button type="submit" class="cell-button"><%= cell %></button>
         <% end %>
+      <% else %>
+        <button class="cell-button" disabled><%= cell %></button>
       <% end %>
     </div>
   <% end %>
