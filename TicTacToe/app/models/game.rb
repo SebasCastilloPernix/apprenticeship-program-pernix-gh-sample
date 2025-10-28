@@ -1,5 +1,6 @@
 class Game < ApplicationRecord
-  attr_reader :board, :player1, :player2, :current_turn
+  attr_reader :board, :player1, :player2
+  attr_accessor :current_turn
 
   # Initializes the game
   def initialize_game(symbol)

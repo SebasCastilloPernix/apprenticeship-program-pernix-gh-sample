@@ -36,6 +36,18 @@ class GameController < ApplicationController
     @game = Game.new
     @game.initialize_board
     @game.board.instance_variable_set(:@board, session[:board]) if session[:board]
-    @game.initialize_players(session[:current_turn] || 'X')
+
+    if session[:player_symbols]
+      player_symbols = session[:player_symbols]
+      @game.player1 = Player.new(player_symbols[0])
+      @game.player2 = Player.new(player_symbols[1])
+    else
+      @game.initialize_players(session[:current_turn] || 'X')
+    end
+
+    # Restaurar el turno actual
+    if session[:current_turn]
+      @game.current_turn = [@game.player1, @game.player2].find { |player| player.symbol == session[:current_turn] }
+    end
   end
 end
