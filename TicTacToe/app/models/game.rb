@@ -1,6 +1,5 @@
 class Game < ApplicationRecord
-  attr_reader :board, :player1, :player2
-  attr_accessor :current_turn
+  attr_accessor :board, :player1, :player2, :current_turn
 
   # Initializes the game
   def initialize_game(symbol)
@@ -25,6 +24,16 @@ class Game < ApplicationRecord
       @current_turn = @player1
     rescue ArgumentError => e
       raise e
+    end
+  end
+
+  # Set current turn by player symbol (e.g. 'X' or 'O').
+  def set_current_turn(symbol)
+    return unless symbol
+    if @player1 && @player1.symbol == symbol
+      @current_turn = @player1
+    elsif @player2 && @player2.symbol == symbol
+      @current_turn = @player2
     end
   end
 

@@ -24,7 +24,7 @@
   <div id="game-board">
   <% @board.board.each_with_index do |cell, index| %>
     <div class="cell">
-      <% if session[:game_status] == :finished %>
+      <% if session[:game_status].to_s == 'finished' %>
         <button class="cell-button" disabled><%= cell %></button>
       <% else %>
         <%= form_with url: make_move_path, method: :post, local: true do |form| %>

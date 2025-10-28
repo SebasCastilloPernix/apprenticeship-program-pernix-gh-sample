@@ -35,19 +35,22 @@ class GameController < ApplicationController
   def load_game_from_session
     @game = Game.new
     @game.initialize_board
-    @game.board.instance_variable_set(:@board, session[:board]) if session[:board]
+    if session[:board].is_a?(Array) && session[:board].size == 9
+      @game.board.instance_variable_set(:@board, session[:board])
+    end
 
-    if session[:player_symbols]
+    if session[:player_symbols].is_a?(Array) && session[:player_symbols].size == 2
       player_symbols = session[:player_symbols]
-      @game.player1 = Player.new(player_symbols[0])
-      @game.player2 = Player.new(player_symbols[1])
+      p1 = Player.new
+      p1.initialize_player(player_symbols[0])
+      p2 = Player.new
+      p2.initialize_player(player_symbols[1])
+      @game.player1 = p1
+      @game.player2 = p2
     else
       @game.initialize_players(session[:current_turn] || 'X')
     end
 
-    # Restaurar el turno actual
-    if session[:current_turn]
-      @game.current_turn = [@game.player1, @game.player2].find { |player| player.symbol == session[:current_turn] }
-    end
+    @game.set_current_turn(session[:current_turn]) if session[:current_turn]
   end
 end
