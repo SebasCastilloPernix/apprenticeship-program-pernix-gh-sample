@@ -27,6 +27,10 @@ class Board < ApplicationRecord
     nil
   end
 
+  def get_moves
+    @board.each_index.select { |i| @board[i] == ' ' }
+  end
+
   # Check if the game is a draw
   def draw?
     @board.none? { |cell| cell == ' ' } && winner?.nil?
