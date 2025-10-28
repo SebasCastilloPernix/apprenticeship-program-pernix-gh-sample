@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Player, type: :model do
   describe '#initialize_symbol' do
-    player = Player.new
+    let(:player) { Player.new }
     # Test's name
     it 'creates a player with X symbol' do
       player.initialize_player('X')
