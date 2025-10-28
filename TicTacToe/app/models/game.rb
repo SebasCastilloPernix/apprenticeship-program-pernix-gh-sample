@@ -45,8 +45,9 @@ class Game < ApplicationRecord
 
   # Check the status of the game
   def check_game_status
-    if @board.winner?
-      { status: :finished, message: "El ganador es el jugador '#{@board.winner?}'" }
+    winner = @board.winner?
+    if winner
+      { status: :finished, message: "El ganador es el jugador '#{winner}'" }
     elsif @board.draw?
       { status: :finished, message: "El juego terminó en empate." }
     else
