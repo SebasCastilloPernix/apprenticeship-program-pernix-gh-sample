@@ -39,4 +39,54 @@ RSpec.describe Player, type: :model do
       end
     end
   end
+
+  describe 'Game status messages' do
+    it 'returns the winner when a column is completed' do
+      game = Game.new
+      game.initialize_game('O')
+      game.make_move(0) # O
+      game.make_move(1) # X
+      game.make_move(3) # O
+      game.make_move(2) # X
+      result = game.make_move(6) # O wins
+      expect(result[:status]).to eq(:finished)
+      expect(result[:message]).to match(/El ganador es el jugador 'O'/)
+    end
+
+    it 'returns the winner when a diagonal is completed' do
+      game = Game.new
+      game.initialize_game('X')
+      game.make_move(0) # X
+      game.make_move(1) # O
+      game.make_move(4) # X
+      game.make_move(2) # O
+      result = game.make_move(8) # X wins
+      expect(result[:status]).to eq(:finished)
+      expect(result[:message]).to match(/El ganador es el jugador 'X'/)
+    end
+
+    it 'returns a draw when the board is full and there is no winner' do
+      game = Game.new
+      game.initialize_game('X')
+      game.make_move(0) # X
+      game.make_move(1) # O
+      game.make_move(2) # X
+      game.make_move(4) # O
+      game.make_move(3) # X
+      game.make_move(5) # O
+      game.make_move(7) # X
+      game.make_move(6) # O
+      result = game.make_move(8) # X
+      expect(result[:status]).to eq(:finished)
+      expect(result[:message]).to match(/El juego terminó en empate/)
+    end
+
+    it 'returns ongoing when the game is not finished' do
+      game = Game.new
+      game.initialize_game('X')
+      result = game.make_move(0) # X
+      expect(result[:status]).to eq(:ongoing)
+      expect(result[:message]).to match(/Turno de 'O'/)
+    end
+  end
 end
