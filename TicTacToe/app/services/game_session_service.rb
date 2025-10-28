@@ -24,4 +24,11 @@ class GameSessionService
   def game_finished?
     @session[:game_status].to_s == 'finished'
   end
+
+  def reset!
+    @session.delete(:board)
+    @session.delete(:current_turn)
+    @session.delete(:game_status)
+    @session.delete(:result)
+  end
 end

@@ -30,6 +30,11 @@ class GameController < ApplicationController
     end
   end
 
+  def reset
+    GameSessionService.new(session, nil).reset!
+    redirect_to root_path, notice: "Juego reiniciado. Selecciona quién jugará como 'X' u 'O'."
+  end
+
   private
 
   def load_game_from_session
