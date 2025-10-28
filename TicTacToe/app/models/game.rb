@@ -1,6 +1,12 @@
 class Game < ApplicationRecord
   attr_reader :board, :player1, :player2, :current_turn
 
+    # Initializes the game
+  def initialize_game(symbol)
+    initialize_board
+    initialize_players(symbol)
+  end
+
   # To initialize the board into the game
   def initialize_board
     @board = Board.new
@@ -21,9 +27,15 @@ class Game < ApplicationRecord
     end
   end
 
-  # Initializes the game
-  def initialize_game(symbol)
-    initialize_board
-    initialize_players(symbol)
+  # Make the movement
+  def make_move(cell_index)
+    @board.make_movement(cell_index, @current_turn)
+    switch_turn
+  end
+
+  private
+  # To change the turn
+  def switch_turn
+    @current_turn = @current_turn == @player1 ? @player2 : @player1
   end
 end
