@@ -100,6 +100,7 @@
 .choice-label:hover {
   background: #f0f8ff;
 }
+
 .btn-primary, .btn {
   background: linear-gradient(180deg, #4aa8d9 0%, #2F77A4 100%);
   color: #ffffff;
