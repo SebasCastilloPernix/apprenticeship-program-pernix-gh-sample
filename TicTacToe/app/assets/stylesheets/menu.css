@@ -32,43 +32,119 @@
   box-sizing: border-box;
 }
 
-#menu button {
-  padding: 10px 20px;
-  font-size: 1rem;
-  color: #fff;
-  background-color: #2F77A4;
-  border: none;
-  border-radius: 5px;
+.choice-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 10px 0 0 0;
+}
+
+.choice-button {
+  padding: 10px 18px;
+  font-size: 1.1rem;
+  color: #2F77A4;
+  background: #fff;
+  border: 2px solid #2F77A4;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.choice-button:hover {
+  background: #f0f8ff;
+}
+
+.choice-button:focus {
+  outline: none;
+}
+
+.choice-button.active {
+  background: #1d5a82;
+  color: #fff;
+  border-color: #163f57;
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.choice-input:not(:checked) + .choice-label {
+  background: #ffffff;
+  color: #2F77A4;
+}
+
+
+.choice-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.choice-label {
+  display: inline-block;
+  padding: 10px 18px;
+  font-size: 1.1rem;
+  color: #2F77A4;
+  background: #fff;
+  border: 2px solid #2F77A4;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.22s ease, color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.choice-input:checked + .choice-label {
+  background: #1d5a82;
+  color: #fff;
+  border-color: #163f57;
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.08), 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.choice-label:hover {
+  background: #f0f8ff;
+}
+
+.btn-primary, .btn {
+  background: linear-gradient(180deg, #4aa8d9 0%, #2F77A4 100%);
+  color: #ffffff;
+  border: none;
+  padding: 12px 22px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  box-shadow: 0 8px 20px rgba(47,119,164,0.18);
+  border-radius: 10px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+  cursor: pointer;
+  display: inline-block;
+}
+
+#start_game {
+  display: block;
   width: 100%;
-  box-sizing: border-box;
-}
-
-#menu button:hover {
-  background-color: #1d5a82;
-}
-
-.btn {
-  padding: 10px 20px;
-  font-size: 1rem;
-  color: #fff;
-  background-color: #236189;
-  border: none;
-  border-radius: 5px;
+  padding: 8px 14px;
+  font-size: 0.95rem;
+  color: #2F77A4;
+  background: #ffffff;
+  border: 2px solid #2F77A4;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.18s ease, color 0.12s ease, box-shadow 0.12s ease, transform 0.08s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+  text-align: center;
+  text-transform: none;
 }
 
-.btn-primary {
-  background-color: #236189;
+#start_game:hover {
+  background: #1d5a82;
+  color: #fff;
+  border-color: #163f57;
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.06), 0 6px 16px rgba(0,0,0,0.08);
+  transform: translateY(-1px);
 }
 
-.btn-primary:hover {
-  background-color: #236189;
+#start_game:active {
+  transform: translateY(1px);
 }
 
-.btn:focus, .cell:focus {
-  outline: 3px solid #FFD700;
-  outline-offset: 3px;
+#start_game:focus-visible {
+  outline: none;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06), 0 0 0 4px rgba(47,119,164,0.08);
 }
