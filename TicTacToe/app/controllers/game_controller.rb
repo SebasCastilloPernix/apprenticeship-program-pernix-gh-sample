@@ -8,6 +8,19 @@ class GameController < ApplicationController
     GameSessionService.new(session, @game).save_state_after_start
     session[:player_symbol] = params[:player_symbol].presence || session[:player_symbol] || 'X'
     session[:game_mode] = params[:game_mode].presence || session[:game_mode] || 'local'
+    if session[:game_mode].to_s == 'ai'
+      human_symbol = session[:player_symbol]
+      if human_symbol != @game.current_turn.symbol
+        ai = AIPlayer.new
+        ai.initialize_player(@game.current_turn.symbol)
+        ai_move = ai.find_best_move(@game.board)
+        if ai_move
+          result = @game.make_move(ai_move)
+          GameSessionService.new(session, @game).save_result(result)
+        end
+      end
+    end
+
     redirect_to game_path, notice: "El juego ha comenzado. Juegas como '#{@game.current_turn.symbol}'. Modo: #{session[:game_mode]}"
   end
 
@@ -25,6 +38,16 @@ class GameController < ApplicationController
       result = @game.make_move(params[:cell_index].to_i)
       GameSessionService.new(session, @game).save_result(result)
       flash[:notice] = result[:message]
+
+      if session[:game_mode].to_s == 'ai' && !GameSessionService.new(session, @game).game_finished? && @game.instance_variable_get(:@current_turn).is_a?(AiPlayer)
+        ai_move = @game.instance_variable_get(:@current_turn).find_best_move(@game.board)
+        if ai_move
+          ai_result = @game.make_move(ai_move)
+          GameSessionService.new(session, @game).save_result(ai_result)
+          flash[:notice] = ai_result[:message]
+        end
+      end
+
       redirect_to game_path
     rescue InvalidLocation, InvalidMovement => e
       flash[:alert] = e.message
@@ -42,22 +65,37 @@ class GameController < ApplicationController
   def load_game_from_session
     @game = Game.new
     @game.initialize_board
-    if session[:board].is_a?(Array) && session[:board].size == 9
-      @game.board.instance_variable_set(:@board, session[:board])
-    end
+    @game.board.instance_variable_set(:@board, session[:board]) if session[:board]
 
-    if session[:player_symbols].is_a?(Array) && session[:player_symbols].size == 2
-      player_symbols = session[:player_symbols]
-      p1 = Player.new
-      p1.initialize_player(player_symbols[0])
-      p2 = Player.new
-      p2.initialize_player(player_symbols[1])
-      @game.player1 = p1
-      @game.player2 = p2
+    # Rebuild players according to session state and game mode (local or ai)
+    human_symbol = session[:player_symbol] || 'X'
+    opponent_symbol = human_symbol == 'X' ? 'O' : 'X'
+
+    # Create player objects
+    human = Player.new
+    human.initialize_player(human_symbol)
+
+    if session[:game_mode].to_s == 'ai'
+      ai = AiPlayer.new
+      ai.initialize_player(opponent_symbol)
+      opponent = ai
     else
-      @game.initialize_players(session[:current_turn] || 'X')
+      opponent = Player.new
+      opponent.initialize_player(opponent_symbol)
     end
 
-    @game.set_current_turn(session[:current_turn]) if session[:current_turn]
+    # Determine current turn symbol saved in session (who should play next)
+    current_symbol = session[:current_turn] || human_symbol
+
+    # Assign players so that @player1 has the current turn
+    if current_symbol == human_symbol
+      @game.instance_variable_set(:@player1, human)
+      @game.instance_variable_set(:@player2, opponent)
+      @game.instance_variable_set(:@current_turn, human)
+    else
+      @game.instance_variable_set(:@player1, opponent)
+      @game.instance_variable_set(:@player2, human)
+      @game.instance_variable_set(:@current_turn, opponent)
+    end
   end
 end
