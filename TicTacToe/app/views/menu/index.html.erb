@@ -1,0 +1,26 @@
+<div id="menu">
+  <h2>Iniciar Nueva Partida</h2>
+  <%= form_with url: start_game_path, method: :post, id: "player-selection-form", local: true do %>
+    <p>Elige tu símbolo:</p>
+    <div class="choice-buttons">
+      <%= radio_button_tag :player_symbol, 'X', (@player_symbol == 'X'), id: 'symbol_x', class: 'choice-input' %>
+      <%= label_tag 'symbol_x', 'X', class: 'choice-label' %>
+
+      <%= radio_button_tag :player_symbol, 'O', (@player_symbol == 'O'), id: 'symbol_o', class: 'choice-input' %>
+      <%= label_tag 'symbol_o', 'O', class: 'choice-label' %>
+    </div>
+
+    <p>Modo de juego:</p>
+    <div class="choice-buttons">
+      <%= radio_button_tag :game_mode, 'ai', (@game_mode == 'ai'), id: 'mode_ai', class: 'choice-input' %>
+      <%= label_tag 'mode_ai', 'Contra IA', class: 'choice-label' %>
+
+      <%= radio_button_tag :game_mode, 'local', (@game_mode == 'local'), id: 'mode_local', class: 'choice-input' %>
+      <%= label_tag 'mode_local', 'Multijugador local', class: 'choice-label' %>
+    </div>
+
+    <div style="margin-top: 16px;">
+      <%= submit_tag "Iniciar Juego", id: "start_game", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
